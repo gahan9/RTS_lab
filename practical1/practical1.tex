@@ -64,20 +64,20 @@
 %----------------------------------------------------------------------------------------
 \title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Practical 1: Comparative Study of RealTime System}} % Article title
 \author{
-\large
-{\textsc{Gahan Saraiya (18MCEC10), Rushi Trivedi (18MCEC08) }}\\[2mm]
-%\thanks{A thank you or further information}\\ % Your name
-\normalsize \href{mailto:18mcec10@nirmauni.ac.in}{18mcec10@nirmauni.ac.in},\href{mailto:18mcec08@nirmauni.ac.in}{18mcec08@nirmauni.ac.in}\\[2mm] % Your email address
+    \large
+    {\textsc{Gahan Saraiya (18MCEC10), Rushi Trivedi (18MCEC08) }}\\[2mm]
+    %\thanks{A thank you or further information}\\ % Your name
+    \normalsize \href{mailto:18mcec10@nirmauni.ac.in}{18mcec10@nirmauni.ac.in},\href{mailto:18mcec08@nirmauni.ac.in}{18mcec08@nirmauni.ac.in}\\[2mm] % Your email address
 }
 \date{}
 \hypersetup{
-	colorlinks=true,
-	linkcolor=blue,
-	filecolor=magenta,      
-	urlcolor=cyan,
-	pdfauthor={Gahan Saraiya},
-	pdfcreator={Gahan Saraiya},
-	pdfproducer={Gahan Saraiya},
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfauthor={Gahan Saraiya},
+    pdfcreator={Gahan Saraiya},
+    pdfproducer={Gahan Saraiya},
 }
 %----------------------------------------------------------------------------------------
 
@@ -110,37 +110,142 @@
 \definecolor{LightGray}{gray}{0.9}
 
 \setminted[text]{
-	frame=lines, 
-	breaklines,
-	baselinestretch=1.2,
-	bgcolor=LightGray,
-%	fontsize=\small
+    frame=lines, 
+    breaklines,
+    baselinestretch=1.2,
+    bgcolor=LightGray,
+    %	fontsize=\small
 }
 
 \setminted[python]{
-	frame=lines, 
-	breaklines, 
-	linenos,
-	baselinestretch=1.2,
-%	bgcolor=LightGray,
-%	fontsize=\small
+    frame=lines, 
+    breaklines, 
+    linenos,
+    baselinestretch=1.2,
+    %	bgcolor=LightGray,
+    %	fontsize=\small
 }
 \newcommand\rtos{Real Time Operating System}
 \newcommand\rtai{Real Time Application Interface}
-\newcommand\rtlinuxi{RTLinux}
+\newcommand\rtlinux{RTLinux}
 \begin{document}
-\maketitle % Insert title
-\thispagestyle{fancy} % All pages have headers and footers
-
-\section{AIM}
-Comparitive study of any two \rtos
-
-\section{Introduction}
-This Lab experiments aims to reflect the comparitive study and analysis of two \rtos described below:
-\begin{itemize}
-	\item RTLinux (Wind River Linux)
-	\item RTAI (\rtai)
-\end{itemize}
-
-
+    \maketitle % Insert title
+    \thispagestyle{fancy} % All pages have headers and footers
+    
+    \section{AIM}
+    Comparative study of any two \rtos
+    
+    \section{Introduction}
+    This Lab experiments aims to reflect the comparative study and analysis of two \rtos described below:
+    \begin{itemize}
+        \item RTLinux (Wind River Linux)
+            \begin{itemize}
+                \item a small hard real-time OS microkernel, which is having priority higher than the Linux kernel which works beneath Linux.
+                \item  Real-time kernel executes real-time tasks such as deterministic interrupt latency ISRs and other non-real-time tasks such as in deterministic task processing are moved to Linux kernel.
+                \item the entire OS runs as a fully preemptive process
+                \item The Linux kernel is modified by adding a virtual machine layer in between the computer hardware and standard linux kernel.
+            \end{itemize}
+        \item RTAI (\rtai)
+    \end{itemize}
+    
+    In Linux there are two approaches are considered for real time systems:
+    \begin{enumerate}
+        \item Improving the Linux kernel preemption.
+        \item\label{enum:rtai} Adding a new software layer beneath Linux kernel with full control of interrupts and processor key features.
+    \end{enumerate}
+    
+    Among this approach RTAI and RTLinux uses approach \ref{enum:rtai}
+    
+    \section{Comparing on various parameters}
+    \subsection{Architecture}
+    \begin{itemize}
+        \item \rtlinux
+        \begin{itemize}
+            \item i386
+            \item ARM
+            \item PPC
+        \end{itemize}
+        \item \rtai
+        \begin{itemize}
+            \item i386
+            \item MIPS
+            \item PPC
+            \item ARM
+            \item m68k-nommu
+        \end{itemize}
+    \end{itemize}
+    
+    \subsection{Memory Management}
+    \begin{itemize}
+        \item \rtlinux
+        \begin{itemize}
+            \item \textbf{Dynamic memory} -- By default, memory must be reserved before the real time thread has started. No dynamic memory allocation (malloc and free functions) are available
+            \item \textbf{Shared memory} -- MBUFF module (mbuff\_alloc, mbuff\_free) (Non-POSIX)
+        \end{itemize}
+        \item \rtai
+        \begin{itemize}
+            \item \textbf{Dynamic memory} -- Support for dynamic memory allocation (rt\_malloc, rt\_free). This functions do not have a hard real time behavior. (Non-POSIX)
+            \item \textbf{Shared memory} -- MBUFF module (mbuff\_alloc, mbuff\_free) (Non-POSIX)
+            \\ SHMEM module (rtai\_malloc, rtai\_free, rtai\_kmalloc, rtai\_kfree). Shmem is the RTAI version, developed by Paolo Mantagazza, which operates in much the same way but is dependant upon RTAI (Non-POSIX)
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \subsection{Interprocess communications}
+    \begin{itemize}
+        \item \rtlinux
+        \begin{itemize}
+            \item FIFO
+            \\ UNIX PIPE's like communication mechanism that can be used to communicate real-time process between them and also with normal linux user processes. (non-POSIX)
+            \item Mailboxes
+            \\ Jerry Epplin IPC implementation (rt\_mq\_open, rt\_mq\_send etc. ) (obsoleted) (Non-POSIX).
+        \end{itemize}
+        \item \rtai
+        \begin{itemize}
+            \item FIFO
+            \\ UNIX PIPE's like communication mechanism. Same than in RTLInux. (non-POSIX)
+            \\ Also provides a mechanism to create fifos by name.
+            \item Mailboxes
+            \\ RTAI provides mailboxes. Messages are ordered in FIFO order. Different size messages of are allowed. Multiple senders and receivers can read and write messages to the same mailbox. There are several sending an receiving functions that provides a lot of flexibility: blocking, non-blocking, timed and whole/partial message.
+            \item Message queues
+            \\Provides four different (incompatible) intertask messages facilities
+            \\
+            \item net\_rpc
+            \\RTAI has extended its API to allow remote (other host) procedure call RPC. New API functions has been added with the following syntax: replace the first two letters of the function name (for example: given the rt\_mbx\_send(), the new function RT\_mbx\_send() has been added); and the new function has two new parameters: node and port. This feature do not comply with any communication standard.
+        \end{itemize}
+    \end{itemize}
+    Too many incompatible, redundant and non standard features is not desirable. A RTOS should provide a simple API.
+    
+    \subsection{Synchronization}
+    \begin{itemize}
+        \item \rtlinux
+        \begin{itemize}
+            \item Mutex
+                \\ POSIX thread mutex variables. Provides PRIORITY\_PROTECT protocol to deal with the priority inversion problem. 
+            \item POSIX conditional variables.
+            \item POSIX semaphores.
+        \end{itemize}
+        \item \rtai
+        \begin{itemize}
+            \item Mutex
+                \\ POSIX thread mutex variables. Provides PRIORITY\_PROTECT protocol to coping the priority inversion problem. 
+            \item POSIX conditional variables.
+            \item Semaphores
+                \\ POSIX semaphores
+                \\ RTAI semaphores (rtf\_sem\_init, rtf\_sem\_wait, \dots). The underling mechanism used to implement this semaphores is the FIFO's blocking features. 
+        \end{itemize}
+    \end{itemize}
+    
+    \subsection{Memory Management}
+    \begin{itemize}
+        \item \rtlinux
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \rtai
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{itemize}
+    
 \end{document}
