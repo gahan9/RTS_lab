@@ -38,6 +38,7 @@ class Scheduler(object):
         """
         return []
 
+
 if __name__ == "__main__":
     processes = {
         "arrival_time": [0, 0, 2, 3, 6],
