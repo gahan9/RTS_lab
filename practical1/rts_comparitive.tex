@@ -95,6 +95,20 @@
 \end{IEEEkeywords}
 
 \section{Introduction}
+\rtai is a real-time extension for the Linux kernel, which lets users write applications with strict timing constraints for Linux. RTAI consists mainly of two parts: 
+\begin{itemize}
+	\item[] An Adeos-based patch to the Linux kernel which introduces a hardware abstraction layer, 
+	\item[] and a broad variety of services which make lives of real-time programmers easier. 
+\end{itemize}
+RTAI versions over 3.0 use an Adeos kernel patch, slightly modified in the x86 architecture case, providing additional abstraction and much lessened dependencies on the "patched" operating system. Adeos is a kernel patch comprising an Interrupt Pipeline where different operating system domains register interrupt handlers. This way, RTAI can transparently take over interrupts while leaving the processing of all others to Linux. Use of Adeos also frees RTAI from patent restrictions caused by RTLinux project.
+
+\rtlinux is a hard realtime real-time operating system (RTOS) microkernel that runs the entire Linux operating system as a fully preemptive process. The hard real-time property makes it possible to control robots, data acquisition systems, manufacturing plants, and other time-sensitive instruments and machines from \rtlinux applications.
+
+The general idea of Real-time (RT) Linux is that a small real-time kernel runs beneath Linux, meaning that the real-time kernel has a higher priority than the Linux kernel. Real-time tasks are executed by the real-time kernel, and normal Linux programs are allowed to run when no realtime tasks have to be executed. Linux can be considered as the idle task of the real-time scheduler. When this idle task runs, it executes its own scheduler and schedules the normal Linux processes. Since the real-time kernel has a higher priority, a normal Linux process is preempted when a real-time task becomes ready to run and the real-time task is executed immediately.
+
+\section{Performance Analysis}
+
+
 
 % references section
 
