@@ -7,4 +7,6 @@ PRACTICAL_LIST
 
 [Practical 3: Earliest Deadline First](practical3/doc/)
 
-[Practical 4: Transient overload](practical4/)
+[Practical 4: Transient overload - Schedule critical task using RM algorithm](practical4/)
+- ask user prompt for non schedulable task set
+- increase period of non-critical task **or** lengthen periodicity of critical task
