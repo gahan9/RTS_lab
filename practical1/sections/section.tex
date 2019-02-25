@@ -56,7 +56,12 @@ Before discussing the trade-off of both \rtos \space first of all it is necessar
         \\ In general, Scheduling latency refers to that \textit{time from when a task is ready to run to when it is actually gets CPU time}. 
 \end{enumerate}
 
+\subsection{Interrupt latency}
+The dominant single-kernel solution is \rtlinux, based on $ PREEMPT.RT $. $ PREEMPT.RT $ reworks the kernel’s “spinlock” locking primitives to maximize the preemptible sections inside the Linux kernel. ($ PREEMPT.RT $ was originally known as the Sleeping Spinlocks Patch).
 
+Instead of running interrupt handlers in hard interrupt context, $ PREEMPT.RT $ runs them in kernel threads. When interrupt arrives, instead of running interrupt handler, just wake up the corresponding kernel thread which runs the handler. Advantage of this method is -- kernel thread becomes interruptible and shows up in process list with PID (process id).
 
 \section{Conclusion}
 The aim of the reported work has been the  performance evaluation of Real Time Linux and RTAI(\rtai), for this evaluation we have started with basics of both \rtlinux \space and RTAI, in this basic discussion the working procedure of both the real time systems are included. Section \ref{sec:performance-analysis} includes the performance analysis focusing on mainly two performance parameters -- interrupt latency and scheduling latency.
+
+It is concluded that with dual kernel approach in RTAI compared to \rtlinux \space offer lower latency however the differences are not as great as claimed in real world scenarios and \rtlinux \space is easier to develop for and maintain.
