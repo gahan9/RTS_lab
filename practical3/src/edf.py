@@ -14,12 +14,20 @@ from sys import *
 
 
 class Scheduler(object):
-    def __init__(self, task_file):
+    def __init__(self, task_file, mode="NORMAL"):
         self.task_file = task_file
         self.data = open(self.task_file).read().split('\n')
         self.tasks, self.max_deadline = self.load_task()
         self.queue = []  # initialize task queue
         self.schedule = []  # output schedule
+        if mode == "DEBUG":
+            self.task_printer()
+
+    def task_printer(self):
+        print("{}\nMax Deadline: {}".format('='*20, self.max_deadline))
+        for i, j in self.tasks.items():
+            print("{} -- {}".format(i, j))
+        print('='*20)
 
     def load_task(self):
         tasks = {}
@@ -30,8 +38,8 @@ class Scheduler(object):
                 if i[0].startswith('#'):
                     # to comment task and skip header
                     continue
-                tasks[i[0]] = {'computation': int(i[3]),  # computation time
-                               'deadline': int(i[2]),  # deadline
+                tasks[i[0]] = {'computation': int(i[2]),  # computation time
+                               'deadline': int(i[3]),  # deadline
                                'release': int(i[1]),  # release time
                                'executed': 0}  # executed amount
                 if tasks[i[0]]['deadline'] > max_deadline:
