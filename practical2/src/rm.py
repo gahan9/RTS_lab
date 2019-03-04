@@ -15,11 +15,34 @@ import pandas as pd
 
 
 class RateMonotonic(object):
-    def __init__(self, task_file):
+    def __init__(self, task_file, mode="NORMAL"):
         self.task_file = task_file
         self.data = open(self.task_file).read().split("\n")
         self.tasks, self.lcm_period = self.load_tasks()
         self.schedule = []
+        self.mode = mode
+        if self.mode == "DEBUG":
+            self.task_printer()
+        self.task_count_in_schedule = self.task_count()
+
+    def task_count(self):
+        _d = {}
+        for key, val in self.tasks.items():
+            if key != "idle":
+               _d[key] = math.ceil(self.lcm_period / val['period'])
+        print(_d)
+        return _d
+
+    def task_printer(self):
+        print("{}\nMax Deadline: {}".format('=' * 20, self.lcm_period))
+        for i, j in self.tasks.items():
+            print("{} -- {}".format(i, j))
+        print('=' * 20)
+
+    def debug(self, *args):
+        if self.mode == "DEBUG":
+            for i in args:
+                print("[{}]: {}".format(self.mode, i))
 
     def gcd(self, a, b):
         return a if b == 0 else self.gcd(b, a % b)
@@ -38,14 +61,18 @@ class RateMonotonic(object):
             if len(i) > 2:
                 tasks[i[0]] = {
                     'computation': int(i[1]),
-                    'period': int(i[2])
+                    'period': int(i[2]),
+                    'deadline': int(i[2]),
+                    'executed': 0
                 }
                 period_list.append(int(i[2]))
         lcm_period = self.LCM(period_list)
         # insert idle task -- in terms of CPU non utilized...
         tasks['idle'] = {
             'computation': lcm_period,
-            'period': lcm_period + 1
+            'period': lcm_period + 1,
+            'deadline': lcm_period + 1,
+            'executed': 0
         }
         return tasks, lcm_period
 
@@ -53,36 +80,39 @@ class RateMonotonic(object):
         queue = list(self.tasks.keys())  # initialize task queue
         curr = ''  # current task
         prev = ''  # previous task
-        tmp = {}
-        for task in self.tasks.keys():
-            tmp[task] = {}  # temporary data for each task
-            tmp[task]['deadline'] = self.tasks[task]['period']
-            tmp[task]['executed'] = 0
+        # self.debug(self.tasks)
 
         # start scheduling...
         # proceed by one timestamp to handle preemption
         for time in range(self.lcm_period):
+            # self.debug("INITIAL STATE ==> {} \t{} \t{}".format(time, queue, curr))
             # insert new tasks into the queue
-            for t in tmp.keys():
-                if time == tmp[t]['deadline']:
-                    if self.tasks[t]['computation'] > tmp[t]['executed']:
-                        print('Scheduling Failed at %d' % time)
+            for t in self.tasks.keys():
+                # self.debug("{} == {} || {}".format(time, t, self.tasks[t]))
+                if time == self.tasks[t]['deadline']:
+                    if self.tasks[t]['computation'] > self.tasks[t]['executed']:
+                        print('Scheduling Failed at {}'.format(time))
                         exit(1)
                     else:
-                        tmp[t]['deadline'] += self.tasks[t]['period']
-                        tmp[t]['executed'] = 0
+                        self.tasks[t]['deadline'] += self.tasks[t]['period']
+                        self.tasks[t]['executed'] = 0
+                        # self.debug("TASK_DEADLINE>>> {} added to queue".format(t))
                         queue.append(t)
+            # self.debug("Queue at time unit >>> {} <<< is >>> {} <<<".format(time, queue))
             # select next task to be scheduled
             _min = self.lcm_period * 2
             for task in queue:
-                if tmp[task]['deadline'] < _min:
-                    _min = tmp[task]['deadline']
+                # self.debug("task updater---------- {}".format(task))
+                # self.debug(self.tasks[task]['deadline'], _min)
+                if self.tasks[task]['deadline'] <= _min:
+                    _min = self.tasks[task]['deadline']
                     curr = task
-            tmp[curr]['executed'] += 1
-            print(time, queue, curr)
+            self.tasks[curr]['executed'] += 1
 
             # de queue the execution-completed task
-            if tmp[curr]['executed'] == self.tasks[curr]['computation']:
+            # self.debug("------", "TIME: {}".format(time), self.tasks)
+            if self.tasks[curr]['executed'] == self.tasks[curr]['computation']:
+                # queue.remove(curr)
                 for i in range(len(queue)):
                     if curr == queue[i]:
                         del queue[i]
@@ -96,11 +126,18 @@ class RateMonotonic(object):
                 self.schedule.append([time, curr])
             prev = curr
 
+        self.debug(self.schedule)
         # check correctness
         k = {}
         for i in self.tasks.keys():
             k[i] = 0
+        # print(k)
         for s in self.schedule:
+            if s != "idle":
+                self.task_count_in_schedule[s[1]] = self.task_count_in_schedule[s[1]] - s[0]
+                if self.task_count_in_schedule[s[1]] > 0:
+                    print("Schedule failed for task: {}".format(s[1]))
+                    exit(1)
             if len(s) == 2:  # count un preempted tasks
                 k[s[1]] += 1
         # print(k)
@@ -122,6 +159,6 @@ if __name__ == '__main__':
     if len(argv) < 2:
         print('Usage: python {} <input-file>'.format(argv[0]))
         exit(1)
-    rm = RateMonotonic(argv[1])
+    rm = RateMonotonic(argv[1], mode="DEBUG")
     schedule = rm.scheduler()
     rm.pretty_print(schedule)
