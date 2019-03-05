@@ -30,7 +30,7 @@ class RateMonotonic(object):
         for key, val in self.tasks.items():
             if key != "idle":
                _d[key] = math.ceil(self.lcm_period / val['period'])
-        print(_d)
+        # print(_d)
         return _d
 
     def task_printer(self):
