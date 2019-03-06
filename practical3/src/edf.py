@@ -78,6 +78,8 @@ class Scheduler(object):
                         self.pretty_print(self.schedule)
                         print('Scheduling Failed at %d!' % time)
                         exit(1)
+            print(time, self.tasks)
+            print(self.queue, "=========> ", curr)
             # select next task to be scheduled
             _min = self.max_deadline + 2
             for task in self.queue:
@@ -101,6 +103,6 @@ if __name__ == '__main__':
     if len(argv) < 2:
         print('Usage: python {} <input-file>'.format(argv[0]))
         exit(1)
-    s = Scheduler(argv[1])
+    s = Scheduler(argv[1], mode="DEBUG")
     schedule = s.scheduler()
-    s.pretty_print(schedule)
+    s.pretty_print(s.schedule)
