@@ -84,7 +84,7 @@ class RateMonotonic(object):
 
         # start scheduling...
         # proceed by one timestamp to handle preemption
-        for time in range(self.lcm_period):
+        for time in range(int(self.lcm_period)):
             # self.debug("INITIAL STATE ==> {} \t{} \t{}".format(time, queue, curr))
             # insert new tasks into the queue
             for t in self.tasks.keys():
@@ -131,13 +131,10 @@ class RateMonotonic(object):
         k = {}
         for i in self.tasks.keys():
             k[i] = 0
-        # print(k)
+        # self.debug(self.task_count_in_schedule)
         for s in self.schedule:
-            if s != "idle":
+            if s[1] != "idle":
                 self.task_count_in_schedule[s[1]] = self.task_count_in_schedule[s[1]] - s[0]
-                if self.task_count_in_schedule[s[1]] > 0:
-                    print("Schedule failed for task: {}".format(s[1]))
-                    exit(1)
             if len(s) == 2:  # count un preempted tasks
                 k[s[1]] += 1
         # print(k)
