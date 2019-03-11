@@ -76,7 +76,11 @@ def calculate_upper_bound(n):
     return n * ((2 ** (1 / float(n))) - 1)
 
 
-def scheduler(processes):
+def scheduler(processes, iteration=0):
+    if iteration > 1:
+        print("Not schedulable")
+        return False
+    iteration += 1
     number_of_process = len(processes)
     print("Scheduling set of {} processes: {}".format(number_of_process, processes))
     # calculate upper bound for schedulable tasks  n * (2^(1/n) - 1)
@@ -109,21 +113,35 @@ def scheduler(processes):
                     max_computation_time = _computation_time
                     _computation_time = _deadline
             if schedule_failed:
-                print("Processes are not schedulable since processes {} can't meet deadline".format(failed_task))
+                print("[FAILURE] Processes are not schedulable since processes {} can't meet deadline".format(failed_task))
                 schedule_success = False
                 updated_process_lis = transient_overload(processes)
-                scheduler(updated_process_lis)
+                scheduler(updated_process_lis, iteration)
                 break
         if schedule_success:
-            print("processes are schedulable")
+            print("[SUCCESS] Processes are schedulable")
             pretty_print(processes, number_of_process)
 
 
-def transient_overload(process_lis):
+def transient_overload(process_lis, iteration=0, method="divide"):
+    if iteration > 1:
+        print("Not Schedulable")
+        return process_lis
     print("Applying Transient Overload to Process set: {}".format(process_lis))
-    updated_process_lis = process_lis
+    iteration += 1
+    if method == "divide":
+        # Modify deadline and computation time by dividing non critical task
+        # Get minimum of non critical task
+        min_of_non_critical = min([i[1] for i in process_lis if i[2] == 0])
+        print(">>> Min of non critical task period -- {}".format(min_of_non_critical))
+        # Modify critical task
+        for task in process_lis:
+            if task[2] == 1 and task[1] >= min_of_non_critical:
+                while task[1] >= min_of_non_critical:
+                    task[1] = task[1] / 2
+                    task[0] = task[0] / 2
     print("Updated Process set: {}".format(process_lis))
-    return updated_process_lis
+    return process_lis
 
 
 if __name__ == "__main__":
@@ -136,9 +154,9 @@ if __name__ == "__main__":
         critical_task_set = [i for i in processes if i[2] == 1]
         if calculate_utilization(critical_task_set) > 1:
             print("All Critical tasks can not be scheduled with RMA")
-        else:
-            # task modification
-            updated_process = transient_overload(processes)
-            scheduler(updated_process)
+        # else:
+        #     # task modification
+        #     updated_process = transient_overload(processes)
+        #     scheduler(updated_process)
     elif utilization <= 1:
         scheduler(processes)
