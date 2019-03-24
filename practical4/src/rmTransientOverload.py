@@ -6,6 +6,9 @@ GiT: https://github.com/gahan9
 StackOverflow: https://stackoverflow.com/users/story/7664524
 
 Implementing Rate Monotonic Algorithm with Transient Overload
+
+Goal:- Change period of critical task so that RM consider it as higher priority
+    over non-critical
 """
 __author__ = "Gahan Saraiya"
 
@@ -17,6 +20,7 @@ p = 0
 def pretty_print(processes, n):
     execution = [processes[i][0] for i in range(n)]
     _lcm = max((map(lambda x: x[1], processes)))
+    _lcm = math.ceil(_lcm)
     while True:
         ind = 0
         for j in range(n):
@@ -36,7 +40,8 @@ def pretty_print(processes, n):
         for j in range(n):
             if execution[j] != 0:
                 execution[j] = execution[j] - 1
-                Result.append(j + 1)
+                # Result.append(j + 1)
+                Result.append(processes[j][3])
                 ind = 1
                 break
         if ind == 0:
@@ -77,10 +82,10 @@ def calculate_upper_bound(n):
 
 
 def scheduler(processes, iteration=0):
-    if iteration > 1:
-        print("Not schedulable")
-        return False
-    iteration += 1
+    # if iteration > 1:
+    #     print("Not schedulable")
+    #     return False
+    # iteration += 1
     number_of_process = len(processes)
     print("Scheduling set of {} processes: {}".format(number_of_process, processes))
     # calculate upper bound for schedulable tasks  n * (2^(1/n) - 1)
@@ -113,10 +118,14 @@ def scheduler(processes, iteration=0):
                     max_computation_time = _computation_time
                     _computation_time = _deadline
             if schedule_failed:
-                print("[FAILURE] Processes are not schedulable since processes {} can't meet deadline".format(failed_task))
+                print("[FAILURE] Processes are not schedulable since processes {} can't meet deadline".format(processes[failed_task][3]))
                 schedule_success = False
-                updated_process_lis = transient_overload(processes)
-                scheduler(updated_process_lis, iteration)
+                if processes[-1][2] == 0:
+                    del processes[-1]
+                    scheduler(processes)
+                else:
+                    print("[ULTIMATE-FAILURE] Task set is not schedulable!!")
+                    return False
                 break
         if schedule_success:
             print("[SUCCESS] Processes are schedulable")
@@ -140,6 +149,7 @@ def transient_overload(process_lis, iteration=0, method="divide"):
                 while task[1] >= min_of_non_critical:
                     task[1] = task[1] / 2
                     task[0] = task[0] / 2
+    process_lis.sort(key=lambda x: x[1])
     print("Updated Process set: {}".format(process_lis))
     return process_lis
 
@@ -158,5 +168,8 @@ if __name__ == "__main__":
         #     # task modification
         #     updated_process = transient_overload(processes)
         #     scheduler(updated_process)
-    elif utilization <= 1:
-        scheduler(processes)
+    elif 0.69 < utilization <= 1:
+        updated_process = transient_overload(processes)
+        scheduler(updated_process)
+    else:
+        print("Tasks are guranteed to be scheduled")
