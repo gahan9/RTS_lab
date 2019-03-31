@@ -149,6 +149,24 @@ def transient_overload(process_lis, iteration=0, method="divide"):
                 while task[1] >= min_of_non_critical:
                     task[1] = task[1] / 2
                     task[0] = task[0] / 2
+    elif method == "multiply":
+        # Modify deadline of non critical task by factor of k
+        # get max period of non critical task
+        max_of_critical = max([i[1] for i in process_lis if i[2] == 1])
+        print(">>> Max of critical task period -- {}".format(max_of_critical))
+        # task set modification
+        processes_to_add = []
+        for task in process_lis:
+            if task[2] == 0 and task[1] <= max_of_critical:
+                k = 2
+                while task[1] * k <= max_of_critical:
+                    k += 1
+                task[1] = task[1] * k
+                processes_to_add.append(task)
+                # print(">>>", task)
+        print("processes_to_add", processes_to_add)
+        process_lis += processes_to_add
+    # print(process_lis)
     process_lis.sort(key=lambda x: x[1])
     print("Updated Process set: {}".format(process_lis))
     return process_lis
@@ -169,7 +187,11 @@ if __name__ == "__main__":
         #     updated_process = transient_overload(processes)
         #     scheduler(updated_process)
     elif 0.69 < utilization <= 1:
-        updated_process = transient_overload(processes)
+        updated_process = transient_overload(processes, method="multiply")
+        # updated_process = transient_overload(processes, method="divide")
+        print("----------- Updated Process List -----------")
+        print(*updated_process, sep="\n")
+        print("--------------------------------------------")
         scheduler(updated_process)
     else:
-        print("Tasks are guranteed to be scheduled")
+        print("Tasks are guaranteed to be scheduled")
