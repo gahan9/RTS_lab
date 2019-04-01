@@ -53,7 +53,7 @@ def pretty_print(processes, n):
             print('|\t{}-{} \t {:^6}\t|'.format(i, i+1, Result[i]))
             # print("%d - %d: %d" % (i, i + 1, Result[i]))
         else:
-            print('|\t{}-{}\t {:^6}\t|'.format(i, i+1, "Idle"))
+            print('|\t{}-{}\t {:^6}\t|'.format(i, i+1, "idle"))
     print('-'*25)
     return
 
@@ -130,6 +130,7 @@ def scheduler(processes, iteration=0):
         if schedule_success:
             print("[SUCCESS] Processes are schedulable")
             pretty_print(processes, number_of_process)
+            return True
 
 
 def transient_overload(process_lis, iteration=0, method="divide"):
@@ -187,11 +188,13 @@ if __name__ == "__main__":
         #     updated_process = transient_overload(processes)
         #     scheduler(updated_process)
     elif 0.69 < utilization <= 1:
-        updated_process = transient_overload(processes, method="multiply")
-        # updated_process = transient_overload(processes, method="divide")
-        print("----------- Updated Process List -----------")
-        print(*updated_process, sep="\n")
-        print("--------------------------------------------")
-        scheduler(updated_process)
+        if not scheduler(processes):
+            updated_process = transient_overload(processes, method="multiply")
+            # updated_process = transient_overload(processes, method="divide")
+            print("----------- Updated Process List -----------")
+            print(*updated_process, sep="\n")
+            print("--------------------------------------------")
+            scheduler(updated_process)
     else:
         print("Tasks are guaranteed to be scheduled")
+        pretty_print(processes, 2)
