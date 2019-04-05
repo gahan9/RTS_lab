@@ -163,7 +163,8 @@ def transient_overload(process_lis, iteration=0, method="divide"):
                 while task[1] * k <= max_of_critical:
                     k += 1
                 task[1] = task[1] * k
-                processes_to_add.append(task)
+                for i in range(k-1):
+                    processes_to_add.append(task)
                 # print(">>>", task)
         print("processes_to_add", processes_to_add)
         process_lis += processes_to_add
