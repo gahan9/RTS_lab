@@ -1,0 +1,115 @@
+%\documentclass[10pt,journal,compsoc]{IEEEtran}
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{float}
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+\usepackage{algorithmic}
+
+% *** ALIGNMENT PACKAGES ***
+%
+\usepackage{array}
+
+% *** FLOWCHART AND GRAPHS PACKAGES ***
+%
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes, shapes.geometric, calc, automata,positioning}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, trapezium stretches=true, draw=black, 
+%fill=red!30
+]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, trapezium stretches=true, minimum height=1cm, text centered, draw=black, 
+%fill=blue!30
+]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, trapezium stretches=true, 
+%fill=orange!30
+]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, trapezium stretches=true, 
+%fill=green!30
+]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% *** TABLE RELATED CHANGES ***
+%
+\renewcommand\arraystretch{2}
+\newcolumntype{L}{>{\arraybackslash}m{4cm}}
+\newcolumntype{P}{>{\arraybackslash}m{2cm}}
+\newcolumntype{C}{>{\arraybackslash}m{1.2cm}}
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+\usepackage{url}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\newcommand\rtos{Real Time Operating System}
+\newcommand\rtai{Real Time Application Interface}
+\newcommand\rtlinux{RTLinux}
+\newcommand\rtsS{Real time system }
+\newcommand\rts{Real time system}
+
+\makeatletter
+\def\endthebibliography{%
+    \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+    \endlist
+}
+\makeatother
+\graphicspath{{./graphics/}}
+
+
+\begin{document}
+%
+% paper title
+\title{Programming issues in Real Time Systems
+%	{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and should not be used}
+%	\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{Gahan Saraiya}
+	\IEEEauthorblockA{\textit{Institute of Technology} \\
+		\textit{Nirma University}\\
+		Ahmedabad, India \\
+		18mcec10@nirmauni.ac.in}
+	\and
+	\IEEEauthorblockN{Rushi Trivedi}
+	\IEEEauthorblockA{\textit{Institute of Technology} \\
+		\textit{Nirma University}\\
+		Ahmedabad, India \\
+		18mcec08@nirmauni.ac.in}
+}
+
+% The paper headers
+%\markboth{Consummating Research Projects using Agile Manifesto, November~2018}%
+%{Shell \MakeLowercase{\textit{et al.}}: Consummating Research Projects using Agile Manifesto}
+
+\maketitle
+% make the title area
+\IEEEdisplaynontitleabstractindextext
+\IEEEpeerreviewmaketitle
+
+\input{sections/abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+	Real Time Systems, Programming issues
+\end{IEEEkeywords}
+
+\input{sections/introduction}
+\input{sections/section}
+
+% references section
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,refs}
+
+% that's all folks
+\end{document}
