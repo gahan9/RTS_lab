@@ -1,4 +1,4 @@
-\section{\rtsS Model}
+\section{\rtsS Model}\label{section:rts-model}
 A \rtsS model can be defined with below parameters:
 \begin{itemize}
     \item Workload model (task graph) is about what behaviors system will be asked to perform
@@ -32,7 +32,7 @@ Of course, the very important information for the real-time analysis are the tim
 \end{itemize}
 All of these issues lead to difficulties in making a priori decisions about how much time to allow, and promote the use of simulation models to help.
 
-\section{Issues for Programming Environments}
+\section{Issues for Programming Environments}\label{section:issues-in-programming-environment}
 For many years, job of real time system programmer is to write a program with an execution time which is lesser than the time constrained allowed. To predict the precise execution time of a program is very difficult hence it usually takes multiple rounds of trail and error method to build a reliable \rts. Also to port existing real-time software to a new configuration rather than building it from scratch takes the same level of effort which is not desirable since the requirements for real-time software are stronger than ever, because of ubiquity of computer systems in all application areas. And not only this but the next-gen real-time applications have more strict timing constraints.
 
 To cope with such issues one needs to think of out-of-the box solution. Such an approach could be to make the system very flexible such that it can meet wide range of timing constraint under various system configurations. Thus the approach focuses on scalability for wide range of timing constraints rather than depending on precise execution time of computation.
@@ -40,10 +40,10 @@ In many hard real-time systems, the requirement for functional correctness is no
 
 To design and develop the next generation \rtsS using approach described above, a programming language which has constructs for right away expressing timing constraints is required. The programmer defines the temporal constraints for the computation and also provides all possible set of codes to be executed. The runtime system along with the compiler and the scheduler must decide and/or generate the code for the execution so that the constraints are met.
 
-Many language features are desirable for real-time systems programming. In fact, almost all features desirable in a "good" conventional (i.e., non-real-time) programming language can be considered as essential for real-time systems programming. For example, five requirements have been suggested for real-time software in \cite{Stoyenko1993}: predictability, reliability, tasking, modularity, and maintainability. Other then predictability all remaining four are always highly desirable in every system. 
+Many language features are desirable for real-time systems programming. In fact, almost all features desirable in a "good" conventional (i.e., non-real-time) programming language can be considered as essential for real-time systems programming. For example, five requirements\label{rts-requirements} have been suggested for real-time software in \cite{Stoyenko1993}: \textit{predictability, reliability, tasking, modularity, and maintainability}. Other then predictability all remaining four are always highly desirable in every system. 
 
 \subsection{Loop size, timer granularity, multi-programming, etc}
-Programmer needs to take account of loops size, timer granularity, multi-programming, imprecise timer, sleep() etc. to avoid potential timing hazards
+Programmer needs to take account of loops size, timer granularity, multi-programming, imprecise timer, sleep() etc. to avoid potential timing hazards.
 
 \subsection{Sequential programs, parallel programs, timely programs}
 
