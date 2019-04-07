@@ -1,4 +1,4 @@
-\section{What Programming Language to choose?}\label{section:chosse-language}
+\section{What Programming Language to choose?}\label{section:choose-programming=language}
 So far the paper explained the \rtsS model, component and significance of programming in \rts.
 There are lot of programming languages available for normal software development such as Assembly language, C, C++, Java, Python, GO, Pearl, Ruby, R etc. However not every language fits by the needs of Real-Time application. As already described the desired five requirements for \rtsS in Section \ref{section:issues-in-programming-environment} not all language guarantees all the five requirements and we have to eliminate those language.
 
@@ -16,4 +16,35 @@ As a result below are listed popular languages available for programming of \rts
     \item C and Real-Time POSIX
     \item Ada 95
     \item Also Modula-1 for device driving
-\end{itemize} 
+\end{itemize}
+
+\subsection{Some issues and fixes for Python}
+Python is most popular scripting language for utility development with huge number of features such that many programmer prefers development in Python however due to the feature provided by the language it makes it not usable for Real-Time application.
+In Real-Time computing, latency\footnote{In general set off by a timer} from an interrupt to application code handling that interrupt being run, is both small and predictable. This means that a control process can be run  repeatedly at most precise time intervals\footnote{or consider that external events can be timed very precisely}. The variation observed in latency is called jitter\footnote{$ 1ms $ maximum jitter interpreted as - an interrupt arriving repeatedly will have a response latency that deviates by at most $ 1ms $.}
+
+For instance consider people building inverters for transmission of power cares about very precise performance where expected maximum jitter might be $ 1\mu s $\footnote{This maximum jitter may varies up to couple of $ milliseconds $ depending upon application}.
+
+\begin{table}[!htbp]
+    \centering
+    \renewcommand{\arraystretch}{2}
+    \caption{Issues and solution for Python }
+    \begin{tabular}{p{4cm} | p {4cm}}
+        Draw back & Possible Solution
+        \\ \hline \hline
+            Python mostly runs on desktop OS\footnote{Operating System}. Desktop OS impose a lower limit to the maximum jitter; for windows it is observed in several seconds. The numbers for desktop Linux are almost similar.
+            &
+            However in desktop Linux one can apply different compile-time options and patch sets to the Linux kernel to improve the situation with $ PREEMPT\_RT\_FULL $\cite{LinuxRTCapabilities}.
+        \\ \hline
+            Python's garbage collector makes latency non-deterministic. When Python runs garbage collector program has to wait until it finishes. 
+            & 
+            One may be able to avoid this through careful memory management and carefully setting the garbage collector parameters, but depending on what libraries are being used one may failed to explicitly manage memory.
+        \\ \hline
+            Python's heap allocation. Most of the real-time application avoids it to achieve predictability as heap allocation is efficient for memory management but on the other hand amount of time is not predictable because of it. 
+            &
+            The more libraries used the memory management and amount of time to predict becomes more and more difficult.
+        \\ \hline
+            it is essential that real-time processes have all their memory kept in physical RAM and not paged out to swap. There is no good way of controlling this in Python, especially running on Windows
+            &
+            on Linux one might be able to fit a call to $ mlockall() $ in somewhere. however any new allocation will upset things.
+    \end{tabular}
+\end{table}

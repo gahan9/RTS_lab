@@ -42,6 +42,22 @@ To design and develop the next generation \rtsS using approach described above, 
 
 Many language features are desirable for real-time systems programming. In fact, almost all features desirable in a "good" conventional (i.e., non-real-time) programming language can be considered as essential for real-time systems programming. For example, five requirements\label{rts-requirements} have been suggested for real-time software in \cite{Stoyenko1993}: \textit{predictability, reliability, tasking, modularity, and maintainability}. Other then predictability all remaining four are always highly desirable in every system. 
 
+\subsection{Asynchronous Communication}
+Remote procedure calls (RPC) are used in computer systems to simplify design of software. RPC allows a programmer to call procedures on a remote machine with the same semantics as local procedure calls. RPCs really ease the design and development of formal systems, but they are of very limited use in \rts s. The main reason is that mainly communication in the real world is asynchronous, i.e. only few message interactions can be classified into the query response prototype that works so well using RPCs.
+
+Thus most \rts s support design based on state machine where multiple messages can be received in a single state. The contents of the received message determines the next state. State machines provide a much flexible mechanism to handle asynchronous message interactions. However the flexibility comes with its own complexities.
+
+\subsection{Working with Distributed Architectures}
+Most \rts s involve processing on many different nodes. The system itself distributes the load of processing among multiple processors. This raises several challenges for programmer:
+\begin{itemize}
+    \item Maintaining Consistency: to maintain consistency in data-structure is a challenge when multiple processors are involved in execution. Generally consistency is maintained by running data-structure audits.
+    \item Initializing the System: Initializing the system with multiple processors is too much complicated than bringing up a single machine. 
+    When a node finishes initialization, it will initiate software downloads for all the child nodes directly connected to it. This process goes on in an hierarchical fashion till the complete system is initialized.
+    \item Inter-Processor Interfaces: One of the biggest headache in \rts s is defining and maintaining message interfaces. Defining of interfaces is complicated by ordering and padding rules for different byte in processors. Maintenance of interfaces is complicated by backward compatibility issues. For example if a cellular system changes the air interface protocol for a new breed of phones, it will still have to support interfaces with older phones.
+    \item Load Distribution: When multiple processors and links are involved in message interactions distributing the load evenly can be a daunting task. If the system has evenly balanced load, the capacity of the system can be increased by adding more processors. Such systems are said to scale linearly with increasing processing power. But often designers find themselves in a position where a single processor or link becomes a bottle neck. This leads to costly redesign of the features to improve system scalability.
+    \item Centralized Resource Allocation: Distributed systems may be running on multiple processors, but resources must be allocated from a shared pool. Shared pool allocation is typically managed by a single processor allocating resources from the shared pool. If the system is not designed cautiously, the shared resource allocator can become a bottle-neck in achieving full system capacity.
+\end{itemize}
+
 \subsection{Loop size, timer granularity, multi-programming, etc}
 Programmer needs to take account of loops size, timer granularity, multi-programming, imprecise timer, sleep() etc. to avoid potential timing hazards.
 
