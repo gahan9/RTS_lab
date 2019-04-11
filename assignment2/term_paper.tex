@@ -106,6 +106,70 @@
 \input{sections/introduction}
 \input{sections/section}
 \input{sections/rtLanguage}
+\section{Timed-C: An Programming Language to Program RTS}
+As discussed in previous sections, there are various programing languages which can be used to program Real Time Systems, along with Ada, RTJS, Python, Java, C is also popular programming language of
+Real time Systems, but simple C language lacks in providing various timing constraints (constructs) as discussed in above sections,also Real time POSIX API provides more complex and erroneous code.So in this section one more RTS programing language is discussed which is Timed-C, Timed-C is an simply extension of simple C language with addition of various timing construct, concurrency construct and scheduling construct, Timed-C also provides less complex and error free code.
+\begin{itemize}
+	\item Timed-C Primitives: In general Timed-C language contains various types of timing primitives like Soft primitives, Absolute primitives, Firm primitives, concurrent primitives, scheduling primitives.Although having various timing primitives here we have discussed only soft primitives.
+\end{itemize}  
+\begin{itemize}
+	\item Soft Timing primitives: As in Real Time Systems, timing constructs plays an vital role. So if logical time or execution time is equal to specified real time the proposed algorithm is optimal,but if logical time is not equal to specified real time i.e. does not satisfies timing constructs, then program has to react explicitly using timing primitives. Soft Timing primitives provides various functions to handle timing constraints which are sdelay, stp, fdelay, ftp. Here in this section sdealy is discussed.
+	\begin{itemize}
+		\item sdelay:It is an timing point. Syntax of sdelay is \\sdelay(expr,n) \\;where expr can be an integer value or any c expression and n is resolution in form of exponent.
+		\\Primitive sdelay() specifies the relative delay from the previous timing point.Soft timing point ensures a lower bound on the specified delay.
+		\\If time taken is more than specified delay then there will be overshoot ( as prer last delay).
+		\\Else return 0, no overshoot.
+	\end{itemize} 
+Also it is to be noted that the starting time of any program is considered as Start timing point implicitly or by default.	
+\\Given below example illustrates the use of sdelay() function.
+\end{itemize}
+\begin{enumerate}
+	\item int main()\{
+	\item initialize();
+	 \item sdelay(20, ms);
+	 \item sense();
+	 \item  sdelay(50, ms);
+	 \item \}
+\end{enumerate}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{graphics/sdelay}
+	\caption{demo of sdelay\cite{8430085}} \label{fig:sdelay}
+\end{figure}
+In above program and Fig \ref{fig:sdelay}, at first sdelay which is at L3 he difference is 20ms which is equal to specified current delay hence no overshoot will be there,similarly at L5 for second delay relative difference is 50ms hence no overshoot.
+
+\subsection{Implementation Of Timed C}
+KTC compiler is used to compile Timed-C which source to source compiler,like other compiler KTC compiler also consists of various phases,which are discussed below:
+\subsubsection{Front-End}
+Front end consists of two phases Initial Analysis and Static Analysis. Output of front end will be CIL (C-Intermediate Language) and AST (Abstract Syntax Tree).
+\begin{itemize}
+	\item Initial Analysis:Here Timed-C input file is taken and addition of timing constructs, parsing and generation of CIL and AST will be done. After this construction of an Hash data structure is done which consists label and various timing constraints and this CIL, AST, Hash will be given to Static Analysis phase.
+\end{itemize}
+\begin{itemize}
+	\item Static Analysis:Here the inputs will be CIL,AST and Hash data structure. Static Analysis is used to reject statements with incorrect timing behavior.
+	After removing statement with error,CIL and AST will send to Back end.
+\end{itemize}
+\subsubsection{Back-End}
+Back end of KTC compiler consists of Transformation and Code generation steps and gives final FreeRTOS and POSIX file as output.
+\begin{itemize}
+	\item Transformation: transforms the language primitives and emits a platform dependent C file and Transformation depends on the type of target platform.
+\end{itemize}
+\begin{itemize}
+	\item Code Generation: This is the final phase, it emits C-code and gives output Free RTOS C file and POSIX file.
+\end{itemize}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{graphics/KTCFront}
+	\caption{Front end of KTC compiler\cite{8430085}: Output CIL AST of this phase is given as input to the KTC backend phase of Fig \ref{fig:KTCBack}} \label{fig:KTCFront}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{graphics/KTCback}
+	\caption{Back end of KTC compiler\cite{8430085}: Input CIL AST is fetched from the output of frontend phase of KTC described in Fig \ref{fig:KTCFront}} \label{fig:KTCBack}
+\end{figure}
 \input{sections/conclusion}
 
 % references section
@@ -113,5 +177,5 @@
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,refs}
 
-% that's all folks
+% that's all folks.
 \end{document}
