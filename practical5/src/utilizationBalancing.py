@@ -18,8 +18,8 @@ __doc__ = """Utilization Balancing Algorithm for Multiprocessor Task Allocation
 """
 import random
 
-NUMBER_OF_PROCESSORS = 10
-NUMBER_OF_TASKS = 20
+NUMBER_OF_PROCESSORS = 15
+NUMBER_OF_TASKS = 50
 HIGHEST_UTILIZATION_FIRST = False
 
 
@@ -48,12 +48,15 @@ def generate_task_set(no_of_tasks, **kwargs):
     _total_utilization = 0.0
     display = kwargs.get('display', True)
     padding = kwargs.get('padding', 15)
+    _diff = kwargs.get('diff', 15)
+    _max = kwargs.get('max_bound', 60)
+    execution_upper_bound = kwargs.get('execution_upper_bound', 20)
     if display:
         print("|{0}|\n|{1:^{5}}{2:^{5}}{3:^{5}}{4:^{5}}|\n|{0}|".format('-' * 4 * padding, 'Task-id', 'Execution', 'Periodicity', 'Utilization', padding))
     for i in range(no_of_tasks):
         task_id = "T{:0>3}".format(i)
-        execution_time = random.randint(1, 20)
-        periodicity = random.randint(execution_time+2, execution_time+30)
+        execution_time = random.randint(1, execution_upper_bound)
+        periodicity = random.randint(execution_time+_diff, execution_time+_diff+_max)
         task_utilization = execution_time / periodicity
         _total_utilization += task_utilization
         tasks[task_id] = [execution_time, periodicity, task_utilization]
