@@ -18,10 +18,10 @@ __doc__ = """Utilization Balancing Algorithm for Multiprocessor Task Allocation
 """
 import random
 
-NUMBER_OF_PROCESSORS = 15
-NUMBER_OF_TASKS = 50
+NUMBER_OF_PROCESSORS = random.randint(20, 100)
+NUMBER_OF_TASKS = random.randint(NUMBER_OF_PROCESSORS, NUMBER_OF_PROCESSORS*2)
 HIGHEST_UTILIZATION_FIRST = False
-
+METHOD = "lowest utilization task assigned" if not HIGHEST_UTILIZATION_FIRST else "highest utilization task assigned"
 
 def initialize_processors(no_of_processors):
     """
@@ -84,6 +84,23 @@ def pretty_print(processor_set, padding=15):
         print("{0:<{3}}{1:<{3}.10f}{2:<{3}}".format(p, utilization, task_lis, padding))
 
 
+def analyze(processor_set):
+    total_processors = len(processor_set)
+    utilizations = [val[0] for key, val in processor_set.items()]
+    utilization_sum = sum(utilizations)
+    mean_utilization = utilization_sum / total_processors
+    utilization_variance = sum([(i-mean_utilization)**2 for i in utilizations]) / total_processors
+    utilization_std_deviation = utilization_variance ** 0.5
+    coefficient_of_variation = (utilization_std_deviation / mean_utilization) * 100
+    print("="*50)
+    print("METHOD: {}".format(METHOD))
+    print("Total Processors: {}".format(total_processors))
+    print("Mean: {}".format(mean_utilization))
+    print("Variance: {}".format(utilization_variance))
+    print("Standard Deviation: {}".format(utilization_std_deviation))
+    print("Coefficient of Variation: {}".format(coefficient_of_variation))
+    print("="*50)
+
 if __name__ == "__main__":
     task_set, total_utilization = generate_task_set(NUMBER_OF_TASKS)
     required_processors = math.ceil(total_utilization)
@@ -97,10 +114,19 @@ if __name__ == "__main__":
     # sort keys of task by utilization
     # descending if HIGHEST_UTILIZATION_FIRST is False
     # ascending if HIGHEST_UTILIZATION_FIRST is True
-    ordered_task_list = sorted(task_set, key=lambda x: task_set[x][2], reverse=not HIGHEST_UTILIZATION_FIRST)
-    while ordered_task_list:
-        task_to_assign = ordered_task_list.pop()  # pop task from end of the list (lowest utilized task if HIGHEST_UTILIZATION_FIRST is False)
-        processor = get_processor_to_assign(processor_utilization)
-        processor_utilization[processor][0] += task_set[task_to_assign][2]
-        processor_utilization[processor][1] += [task_to_assign]
-    pretty_print(processor_utilization)
+    for i in ["increasing", "decreasing", "random"]:
+        METHOD = i
+        if i == "increasing":
+            ordered_task_list = sorted(task_set, key=lambda x: task_set[x][2])
+        elif i == "decreasing":
+            ordered_task_list = sorted(task_set, key=lambda x: task_set[x][2], reverse=True)
+        else:
+            ordered_task_list = sorted(task_set, key=lambda x: task_set[x][2])
+            random.shuffle(ordered_task_list)
+        while ordered_task_list:
+            task_to_assign = ordered_task_list.pop()  # pop task from end of the list (lowest utilized task if HIGHEST_UTILIZATION_FIRST is False)
+            processor = get_processor_to_assign(processor_utilization)
+            processor_utilization[processor][0] += task_set[task_to_assign][2]
+            processor_utilization[processor][1] += [task_to_assign]
+        # pretty_print(processor_utilization)
+        analyze(processor_utilization)
