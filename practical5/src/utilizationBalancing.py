@@ -19,7 +19,7 @@ __doc__ = """Utilization Balancing Algorithm for Multiprocessor Task Allocation
 import random
 
 NUMBER_OF_PROCESSORS = random.randint(20, 100)
-NUMBER_OF_TASKS = random.randint(NUMBER_OF_PROCESSORS, NUMBER_OF_PROCESSORS*2)
+NUMBER_OF_TASKS = random.randint(NUMBER_OF_PROCESSORS, NUMBER_OF_PROCESSORS*3)
 HIGHEST_UTILIZATION_FIRST = False
 METHOD = "lowest utilization task assigned" if not HIGHEST_UTILIZATION_FIRST else "highest utilization task assigned"
 
@@ -46,7 +46,7 @@ def generate_task_set(no_of_tasks, **kwargs):
     """
     tasks = {}
     _total_utilization = 0.0
-    display = kwargs.get('display', True)
+    display = kwargs.get('display', False)
     padding = kwargs.get('padding', 15)
     _diff = kwargs.get('diff', 15)
     _max = kwargs.get('max_bound', 60)
@@ -105,16 +105,14 @@ if __name__ == "__main__":
     task_set, total_utilization = generate_task_set(NUMBER_OF_TASKS)
     required_processors = math.ceil(total_utilization)
     print("Required Processors: {}".format(required_processors) +
-          "\nAvailable Processors: {}".format(NUMBER_OF_PROCESSORS)
+          "\nAvailable Processors: {}".format(NUMBER_OF_PROCESSORS) +
+          "\nCalculated Utilization: {}".format(total_utilization)
           )
     if required_processors > NUMBER_OF_PROCESSORS:
         print("Insufficient processors to assign task for scheduling")
         exit(1)
-    processor_utilization = initialize_processors(NUMBER_OF_PROCESSORS)
-    # sort keys of task by utilization
-    # descending if HIGHEST_UTILIZATION_FIRST is False
-    # ascending if HIGHEST_UTILIZATION_FIRST is True
     for i in ["increasing", "decreasing", "random"]:
+        processor_utilization = initialize_processors(NUMBER_OF_PROCESSORS)
         METHOD = i
         if i == "increasing":
             ordered_task_list = sorted(task_set, key=lambda x: task_set[x][2])
@@ -124,7 +122,7 @@ if __name__ == "__main__":
             ordered_task_list = sorted(task_set, key=lambda x: task_set[x][2])
             random.shuffle(ordered_task_list)
         while ordered_task_list:
-            task_to_assign = ordered_task_list.pop()  # pop task from end of the list (lowest utilized task if HIGHEST_UTILIZATION_FIRST is False)
+            task_to_assign = ordered_task_list.pop(0)  # pop task from end of the list (lowest utilized task if HIGHEST_UTILIZATION_FIRST is False)
             processor = get_processor_to_assign(processor_utilization)
             processor_utilization[processor][0] += task_set[task_to_assign][2]
             processor_utilization[processor][1] += [task_to_assign]

@@ -1,0 +1,459 @@
+Required Processors: 19
+Available Processors: 43
+Calculated Utilization: 18.714506685377188
+==================================================
+METHOD: increasing
+Total Processors: 43
+Mean: 0.4352210857064463
+Variance: 0.019530641972834672
+Standard Deviation: 0.1397520732326883
+Coefficient of Variation: 32.11059340239552
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 43
+Mean: 0.43522108570644646
+Variance: 0.000947371227109642
+Standard Deviation: 0.030779396145955203
+Coefficient of Variation: 7.072128891915795
+==================================================
+==================================================
+METHOD: random
+Total Processors: 43
+Mean: 0.43522108570644613
+Variance: 0.012769871935719766
+Standard Deviation: 0.11300385805679276
+Coefficient of Variation: 25.96470202572243
+==================================================
+Required Processors: 15
+Available Processors: 50
+Calculated Utilization: 14.577571831741244
+==================================================
+METHOD: increasing
+Total Processors: 50
+Mean: 0.29155143663482475
+Variance: 0.01694252154020088
+Standard Deviation: 0.1301634416424246
+Coefficient of Variation: 44.64510384335971
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 50
+Mean: 0.29155143663482475
+Variance: 0.006945651625421338
+Standard Deviation: 0.0833405761044483
+Coefficient of Variation: 28.585205089842997
+==================================================
+==================================================
+METHOD: random
+Total Processors: 50
+Mean: 0.29155143663482486
+Variance: 0.010616640545885873
+Standard Deviation: 0.10303708335296508
+Coefficient of Variation: 35.34096231603259
+==================================================
+Required Processors: 14
+Available Processors: 45
+Calculated Utilization: 13.290813871778614
+==================================================
+METHOD: increasing
+Total Processors: 45
+Mean: 0.295351419372858
+Variance: 0.015608971158358423
+Standard Deviation: 0.1249358681818733
+Coefficient of Variation: 42.300750897747186
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 45
+Mean: 0.2953514193728581
+Variance: 0.0021686273116242965
+Standard Deviation: 0.0465685227554439
+Coefficient of Variation: 15.76715725772585
+==================================================
+==================================================
+METHOD: random
+Total Processors: 45
+Mean: 0.2953514193728582
+Variance: 0.00778399819237191
+Standard Deviation: 0.08822696975625939
+Coefficient of Variation: 29.871862455781766
+==================================================
+Required Processors: 26
+Available Processors: 71
+Calculated Utilization: 25.448880276600214
+==================================================
+METHOD: increasing
+Total Processors: 71
+Mean: 0.35843493347324246
+Variance: 0.02245991497795123
+Standard Deviation: 0.14986632369532266
+Coefficient of Variation: 41.811305121159556
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 71
+Mean: 0.3584349334732426
+Variance: 0.003503058060779568
+Standard Deviation: 0.05918663751878094
+Coefficient of Variation: 16.512519286348873
+==================================================
+==================================================
+METHOD: random
+Total Processors: 71
+Mean: 0.35843493347324235
+Variance: 0.012829755299368126
+Standard Deviation: 0.11326850974285892
+Coefficient of Variation: 31.600856714853258
+==================================================
+Required Processors: 45
+Available Processors: 89
+Calculated Utilization: 44.36691966890272
+==================================================
+METHOD: increasing
+Total Processors: 89
+Mean: 0.49850471538092933
+Variance: 0.01789403579991848
+Standard Deviation: 0.13376859048341086
+Coefficient of Variation: 26.833966932728494
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 89
+Mean: 0.49850471538092933
+Variance: 0.0006769633365087042
+Standard Deviation: 0.02601851910675748
+Coefficient of Variation: 5.2193125368685
+==================================================
+==================================================
+METHOD: random
+Total Processors: 89
+Mean: 0.49850471538092916
+Variance: 0.008906277288018506
+Standard Deviation: 0.0943730750162275
+Coefficient of Variation: 18.931230157795582
+==================================================
+Required Processors: 31
+Available Processors: 55
+Calculated Utilization: 30.146086369187298
+==================================================
+METHOD: increasing
+Total Processors: 55
+Mean: 0.5481106612579509
+Variance: 0.023833979823098535
+Standard Deviation: 0.15438257616421142
+Coefficient of Variation: 28.16631513970062
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 55
+Mean: 0.548110661257951
+Variance: 7.522829982896006e-05
+Standard Deviation: 0.008673424919197726
+Coefficient of Variation: 1.5824222246091015
+==================================================
+==================================================
+METHOD: random
+Total Processors: 55
+Mean: 0.5481106612579507
+Variance: 0.010959960540667994
+Standard Deviation: 0.10468983016830237
+Coefficient of Variation: 19.100126592690643
+==================================================
+Required Processors: 18
+Available Processors: 43
+Calculated Utilization: 17.579123374805004
+==================================================
+METHOD: increasing
+Total Processors: 43
+Mean: 0.40881682266988406
+Variance: 0.016158407806160055
+Standard Deviation: 0.12711572603796925
+Coefficient of Variation: 31.0935653791855
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 43
+Mean: 0.40881682266988406
+Variance: 0.0006064046907012952
+Standard Deviation: 0.024625285596339693
+Coefficient of Variation: 6.023549969279124
+==================================================
+==================================================
+METHOD: random
+Total Processors: 43
+Mean: 0.408816822669884
+Variance: 0.013467749584784201
+Standard Deviation: 0.1160506337112564
+Coefficient of Variation: 28.386951631138295
+==================================================
+Required Processors: 33
+Available Processors: 63
+Calculated Utilization: 32.38872214364302
+==================================================
+METHOD: increasing
+Total Processors: 63
+Mean: 0.5141067006927463
+Variance: 0.023315866659931656
+Standard Deviation: 0.15269533935235763
+Coefficient of Variation: 29.701098847107875
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 63
+Mean: 0.5141067006927462
+Variance: 0.0004424076316641421
+Standard Deviation: 0.02103348833798479
+Coefficient of Variation: 4.091269051666255
+==================================================
+==================================================
+METHOD: random
+Total Processors: 63
+Mean: 0.5141067006927462
+Variance: 0.010522504230184594
+Standard Deviation: 0.10257925828443387
+Coefficient of Variation: 19.952912137929893
+==================================================
+Required Processors: 28
+Available Processors: 67
+Calculated Utilization: 27.103797773606207
+==================================================
+METHOD: increasing
+Total Processors: 67
+Mean: 0.40453429512845085
+Variance: 0.01656413975061463
+Standard Deviation: 0.12870174727102437
+Coefficient of Variation: 31.81479266922425
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 67
+Mean: 0.40453429512845057
+Variance: 0.000879771156579725
+Standard Deviation: 0.029660936542525506
+Coefficient of Variation: 7.332119155214604
+==================================================
+==================================================
+METHOD: random
+Total Processors: 67
+Mean: 0.4045342951284506
+Variance: 0.010322345912086646
+Standard Deviation: 0.10159894641228641
+Coefficient of Variation: 25.115039104416592
+==================================================
+Required Processors: 15
+Available Processors: 46
+Calculated Utilization: 14.103656539074619
+==================================================
+METHOD: increasing
+Total Processors: 46
+Mean: 0.30660122911031773
+Variance: 0.022298931312570894
+Standard Deviation: 0.14932826695763562
+Coefficient of Variation: 48.70439280069097
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 46
+Mean: 0.3066012291103178
+Variance: 0.00576928472516855
+Standard Deviation: 0.07595580771190936
+Coefficient of Variation: 24.773484415673952
+==================================================
+==================================================
+METHOD: random
+Total Processors: 46
+Mean: 0.3066012291103179
+Variance: 0.01507314487420592
+Standard Deviation: 0.12277273668940479
+Coefficient of Variation: 40.0431325881052
+==================================================
+Required Processors: 45
+Available Processors: 84
+Calculated Utilization: 44.018881183459136
+==================================================
+METHOD: increasing
+Total Processors: 84
+Mean: 0.5240342998030852
+Variance: 0.021902890170889037
+Standard Deviation: 0.1479962505298328
+Coefficient of Variation: 28.241710625706162
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 84
+Mean: 0.5240342998030852
+Variance: 0.0008312419206703023
+Standard Deviation: 0.02883126637298997
+Coefficient of Variation: 5.501789936999125
+==================================================
+==================================================
+METHOD: random
+Total Processors: 84
+Mean: 0.5240342998030852
+Variance: 0.009297190322432026
+Standard Deviation: 0.09642193900991634
+Coefficient of Variation: 18.399928982921253
+==================================================
+Required Processors: 34
+Available Processors: 55
+Calculated Utilization: 33.94429176221447
+==================================================
+METHOD: increasing
+Total Processors: 55
+Mean: 0.6171689411311727
+Variance: 0.01848254835388363
+Standard Deviation: 0.13595053642367003
+Coefficient of Variation: 22.02809107251805
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 55
+Mean: 0.6171689411311726
+Variance: 0.00024058274539512492
+Standard Deviation: 0.015510730008453016
+Coefficient of Variation: 2.5132065103639714
+==================================================
+==================================================
+METHOD: random
+Total Processors: 55
+Mean: 0.6171689411311726
+Variance: 0.011092001669030297
+Standard Deviation: 0.10531857228917556
+Coefficient of Variation: 17.064788143120644
+==================================================
+Required Processors: 32
+Available Processors: 85
+Calculated Utilization: 31.151141918369504
+==================================================
+METHOD: increasing
+Total Processors: 85
+Mean: 0.36648402256905305
+Variance: 0.020428714579024104
+Standard Deviation: 0.14292905435573308
+Coefficient of Variation: 39.00007791712184
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 85
+Mean: 0.36648402256905294
+Variance: 0.001742604670564586
+Standard Deviation: 0.04174451665266453
+Coefficient of Variation: 11.390542037831683
+==================================================
+==================================================
+METHOD: random
+Total Processors: 85
+Mean: 0.36648402256905305
+Variance: 0.011887095683303045
+Standard Deviation: 0.10902795826439678
+Coefficient of Variation: 29.749716645247116
+==================================================
+Required Processors: 35
+Available Processors: 61
+Calculated Utilization: 34.22414245236756
+==================================================
+METHOD: increasing
+Total Processors: 61
+Mean: 0.5610515156125828
+Variance: 0.021358575187909352
+Standard Deviation: 0.14614573270509595
+Coefficient of Variation: 26.048540755749865
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 61
+Mean: 0.5610515156125827
+Variance: 0.00012404429775127637
+Standard Deviation: 0.011137517575801009
+Coefficient of Variation: 1.9851149610817
+==================================================
+==================================================
+METHOD: random
+Total Processors: 61
+Mean: 0.5610515156125828
+Variance: 0.011915818742059787
+Standard Deviation: 0.10915960215235207
+Coefficient of Variation: 19.456252966925224
+==================================================
+Required Processors: 28
+Available Processors: 71
+Calculated Utilization: 27.450444927187117
+==================================================
+METHOD: increasing
+Total Processors: 71
+Mean: 0.3866259848899594
+Variance: 0.02062228017382694
+Standard Deviation: 0.14360459663195652
+Coefficient of Variation: 37.143027691951154
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 71
+Mean: 0.3866259848899595
+Variance: 0.0011001970688221483
+Standard Deviation: 0.03316921869478008
+Coefficient of Variation: 8.5791488392123
+==================================================
+==================================================
+METHOD: random
+Total Processors: 71
+Mean: 0.38662598488995953
+Variance: 0.01274018405865257
+Standard Deviation: 0.11287242381845342
+Coefficient of Variation: 29.19421565795141
+==================================================
+Required Processors: 38
+Available Processors: 76
+Calculated Utilization: 37.84850221453166
+==================================================
+METHOD: increasing
+Total Processors: 76
+Mean: 0.49800660808594277
+Variance: 0.02230040926564128
+Standard Deviation: 0.14933321554711557
+Coefficient of Variation: 29.986191573053304
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 76
+Mean: 0.4980066080859428
+Variance: 0.00032999955155846723
+Standard Deviation: 0.018165889781633797
+Coefficient of Variation: 3.647720629943698
+==================================================
+==================================================
+METHOD: random
+Total Processors: 76
+Mean: 0.4980066080859428
+Variance: 0.013342648821570931
+Standard Deviation: 0.11551038404217576
+Coefficient of Variation: 23.194548459132434
+==================================================
+Required Processors: 38
+Available Processors: 62
+Calculated Utilization: 37.97440770652443
+==================================================
+METHOD: increasing
+Total Processors: 62
+Mean: 0.6124904468794263
+Variance: 0.020282831277484537
+Standard Deviation: 0.14241780533867435
+Coefficient of Variation: 23.25224924964592
+==================================================
+==================================================
+METHOD: decreasing
+Total Processors: 62
+Mean: 0.6124904468794262
+Variance: 0.0001528646668617166
+Standard Deviation: 0.012363845148727664
+Coefficient of Variation: 2.0186184473113244
+==================================================
+==================================================
+METHOD: random
+Total Processors: 62
+Mean: 0.6124904468794266
+Variance: 0.00811342531517484
+Standard Deviation: 0.09007455420469668
+Coefficient of Variation: 14.70627903890043
+==================================================
